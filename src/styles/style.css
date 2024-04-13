@@ -5,3 +5,7 @@
 .pl_image-wrapper {
   clip-path: polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%);
 }
+
+.main-wrapper {
+  z-index: 20;
+}

@@ -34,7 +34,9 @@ const pageHome = () => {
   })
 
   // Heading Timeline Subsections
-  const tl_textReveal = gsap.timeline({ ease: 'none' })
+  const tl_textReveal = gsap.timeline({
+    ease: 'none',
+  })
   const tl_line01 = gsap.timeline()
   const tl_line02 = gsap.timeline()
   const tl_line03 = gsap.timeline()
@@ -136,7 +138,11 @@ const pageHome = () => {
     )
     .from(
       '.heading_line.is-05',
-      { duration: linesDuration, x: -lineXDistance, ease: '20_100' },
+      {
+        duration: linesDuration,
+        x: -lineXDistance,
+        ease: '20_100',
+      },
       0
     )
   tl_labels
@@ -156,10 +162,23 @@ const pageHome = () => {
 
   // Image Reveal Timelines
   const tl_imageReveal = gsap.timeline()
-  const tl_image01 = gsap.timeline({ defaults: { ease: '10_100' } })
-  const tl_image02 = gsap.timeline({ defaults: { ease: '10_100' } })
-  const tl_image03 = gsap.timeline({ defaults: { ease: '10_100' } })
+  const tl_image01 = gsap.timeline({
+    defaults: { ease: '10_100' },
+  })
+  const tl_image02 = gsap.timeline({
+    defaults: { ease: '10_100' },
+    onComplete: function () {
+      gsap.set('.pl_image-wrapper.is-01', { display: 'none' })
+      gsap.set('.pl_image-wrapper.is-02', { display: 'none' })
+    },
+  })
+  const tl_image03 = gsap.timeline({
+    defaults: { ease: '10_100' },
+  })
   const tl_image04 = gsap.timeline({ defaults: { ease: '10_100' } })
+  const tl_image05 = gsap.timeline({
+    defaults: { ease: '10_100' },
+  })
   tl_image01
     .to(
       '.pl_image-wrapper.is-01',
@@ -194,6 +213,7 @@ const pageHome = () => {
       },
       0
     )
+    .to('.pl_wrapper', { duration: 0, backgroundColor: 'white' })
   tl_image03
     .to(
       '.pl_image-wrapper.is-03',
@@ -228,12 +248,46 @@ const pageHome = () => {
       },
       0
     )
+  tl_image05.to(
+    '.pl_image-wrapper.is-05',
+    {
+      duration: 0.67,
+      clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
+    },
+    0
+  )
 
   tl_imageReveal
     .add(tl_image01, 0)
-    .add(tl_image02, 0.4)
-    .add(tl_image03, 0.8)
-    .add(tl_image04, 1.2)
+    .add(tl_image02, 0.35)
+    .add(tl_image03, 0.7)
+    .add(tl_image04, 1.05)
+    .add(tl_image05, 1.4)
+
+  // Main Intro Timeline
+  const tl_main = gsap.timeline()
+
+  tl_main.add(tl_imageReveal, 1).add(tl_textReveal, '-=0.9')
 }
 
 export default pageHome
+
+/* 
+    .to(
+      '.pl_image-wrapper.is-04',
+      {
+        duration: 0.67,
+        clipPath: 'polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)',
+      },
+      0.33
+    )
+
+
+
+
+    .add(tl_image01, 0)
+    .add(tl_image02, 0.35)
+    .add(tl_image03, 0.7)
+    .add(tl_image04, 1.05)
+    .add(tl_image05, 1.4)
+*/
