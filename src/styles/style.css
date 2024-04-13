@@ -1,3 +1,7 @@
 .word {
   overflow: hidden;
 }
+
+.pl_image-wrapper {
+  clip-path: polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%);
+}
