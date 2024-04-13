@@ -6,21 +6,24 @@ const pageHome = () => {
   gsap.registerPlugin(CustomEase)
   CustomEase.create('20_80', 'M0,0 C0.2,0 0.2,1 1,1 ')
   CustomEase.create('20_100', 'M0,0 C0.2,0 0,1 1,1 ')
+
+  // Timeline controls
   const charYOffset = `200%`
   const charsStagger = 0.03
   const charsDuration = 0.7
   const linesDuration = 1.5
   const lineXDistance = 200
-  const lineDelay = 1.4
+  const lineDelay = 1.35
+  const timescale = 1.3
 
   const st_line1 = new SplitType('.heading_line.is-01 h1', {
-    types: 'words chars',
+    types: 'lines words chars',
   })
   const st_line2 = new SplitType('.heading_line.is-02 h1', {
     types: 'words chars',
   })
   const st_line3 = new SplitType('.heading_line.is-03 h1', {
-    types: 'words chars',
+    types: 'lines words chars',
   })
   const st_line4 = new SplitType('.heading_line.is-04 h1', {
     types: 'words chars',
@@ -30,7 +33,7 @@ const pageHome = () => {
   })
 
   // Timeline is here
-  const tl_main = gsap.timeline({ ease: 'none', repeat: -1 })
+  const tl_main = gsap.timeline({ ease: 'none' })
   const tl_line01 = gsap.timeline()
   const tl_line02 = gsap.timeline()
   const tl_line03 = gsap.timeline()
@@ -52,7 +55,7 @@ const pageHome = () => {
       0
     )
     .from(
-      '.heading_line.is-01',
+      '.heading_line.is-01 .line',
       { duration: linesDuration, x: lineXDistance, ease: '20_100' },
       0
     )
@@ -90,7 +93,7 @@ const pageHome = () => {
       0
     )
     .from(
-      '.heading_line.is-03',
+      '.heading_line.is-03 .line',
       { duration: linesDuration, x: lineXDistance, ease: '20_100' },
       0
     )
@@ -139,6 +142,7 @@ const pageHome = () => {
     .add(tl_line03, `-=${lineDelay}`)
     .add(tl_line02, `-=${lineDelay}`)
     .add(tl_line01, `-=${lineDelay}`)
+    .timeScale(timescale)
 }
 
 export default pageHome
