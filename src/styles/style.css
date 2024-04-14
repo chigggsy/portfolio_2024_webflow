@@ -6,6 +6,10 @@
   clip-path: polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%);
 }
 
+.heading_image {
+  clip-path: polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%);
+}
+
 .main-wrapper {
-  z-index: 20;
+  z-index: 2;
 }
