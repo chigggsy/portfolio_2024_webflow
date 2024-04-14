@@ -301,7 +301,11 @@ const pageHome = () => {
       .timeScale(timescale)
 
     // Main Intro Timeline
-    const tl_main = gsap.timeline()
+    const tl_main = gsap.timeline({
+      onComplete: function () {
+        gsap.set('.pl_wrapper', { display: 'none' })
+      },
+    })
 
     tl_main.add(tl_imageReveal, 1).add(tl_textReveal, '-=0.9')
   }
@@ -331,8 +335,25 @@ const pageHome = () => {
     )
   }
 
+  const link_hover = () => {
+    const body = document.querySelector('body')
+    const navLinks = document.querySelectorAll('.navbar a, .socials_wrapper a')
+
+    navLinks.forEach((link) => {
+      link.addEventListener('mouseover', () => {
+        link.style.color = 'var(--white)'
+        body.style.backgroundColor = 'var(--brand)'
+      })
+      link.addEventListener('mouseout', () => {
+        link.style.color = 'var(--brand)'
+        body.style.backgroundColor = 'var(--white)'
+      })
+    })
+  }
+
   anim_intro()
   anim_rotateThumbnails()
+  link_hover()
 }
 
 export default pageHome
