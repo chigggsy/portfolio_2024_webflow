@@ -1,9 +1,11 @@
 import { gsap } from 'gsap'
 import { CustomEase } from 'gsap/CustomEase'
+import { Flip } from 'gsap/Flip'
 import SplitType from 'split-type'
 
 const pageHome = () => {
   gsap.registerPlugin(CustomEase)
+  gsap.registerPlugin(Flip)
   CustomEase.create('20_80', 'M0,0 C0.2,0 0.2,1 1,1 ')
   CustomEase.create('20_100', 'M0,0 C0.2,0 0,1 1,1 ')
   CustomEase.create('10_100', 'M0,0 C0.1,0 0,1 1,1 ')
@@ -427,12 +429,30 @@ const pageHome = () => {
       link.addEventListener('mouseover', () => {
         link.style.color = 'var(--white)'
         body.style.backgroundColor = 'var(--brand)'
-        // gsap.set('.image_gallery', { opacity: 0 }, 0)
+        gsap.set(link, { zIndex: 10 }, 0)
       })
       link.addEventListener('mouseout', () => {
         link.style.color = 'var(--brand)'
         body.style.backgroundColor = 'var(--white)'
-        // gsap.set('.image_gallery', { opacity: 1 })
+        gsap.set(link, { zIndex: 0 }, 0)
+      })
+    })
+  }
+
+  // Currently working on this <----------------------------------------------
+  const navigate_projects = () => {
+    const imageGroupList = gsap.utils.toArray('.image_group')
+    const linkProject = document.querySelector('.nav_item.is-projects')
+    const galleryFlipContainer = document.querySelector(
+      '.gallery_flip-container'
+    )
+
+    linkProject.addEventListener('click', (event) => {
+      event.preventDefault()
+      let state = Flip.getState('.image_group')
+      imageGroupList.forEach((imageGroup) => {
+        imageGroup.appendChild(galleryFlipContainer)
+        Flip.from(state, { duration: 1.5, ease: 'power3.inOut' }, 0)
       })
     })
   }
@@ -443,6 +463,7 @@ const pageHome = () => {
     anim_clipPath()
   }, 3500)
   link_hover()
+  navigate_projects()
 }
 
 export default pageHome

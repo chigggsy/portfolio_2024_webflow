@@ -14,3 +14,9 @@
 .image_wrapper {
   width: 300px;
 }
+
+.main_wrapper.is-projects {
+  a {
+    color: white;
+  }
+}
