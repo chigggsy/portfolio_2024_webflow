@@ -342,27 +342,24 @@ const pageHome = () => {
 
         if (pastState === 1) {
           const tl = gsap.timeline({
-            defaults: { ease: 'power3.out', duration: 0.7 },
+            defaults: { ease: 'power3.out', duration: 1 },
           })
           tl.to('.image_group', {
             clipPath: 'polygon(-100% 66.7%, 0% 66.7%, 0% 100%, -100% 100%)',
-            stagger: 0.05,
           })
         } else if (pastState === 2) {
           const tl = gsap.timeline({
-            defaults: { ease: 'power3.out', duration: 0.7 },
+            defaults: { ease: 'power3.out', duration: 1 },
           })
           tl.to('.image_group', {
             clipPath: 'polygon(0% 33.3%, 100% 33.3%, 100% 66.7%, 0% 66.7%',
-            stagger: 0.05,
           })
         } else {
           const tl = gsap.timeline({
-            defaults: { ease: 'power3.out', duration: 0.7 },
+            defaults: { ease: 'power3.out', duration: 1 },
           })
           tl.to('.image_group', {
             clipPath: 'polygon(100% 0%, 200% 0%, 200% 33.3%, 100% 33.3%',
-            stagger: 0.05,
           })
         }
       }
@@ -402,12 +399,12 @@ const pageHome = () => {
         const mouseX = event.clientX
         const mouseY = event.clientY
 
-        galleryX = gsap.utils.mapRange(0, viewportWidth, -5, 5, mouseX)
-        galleryY = gsap.utils.mapRange(0, viewportHeight, -5, 5, mouseY)
+        galleryX = gsap.utils.mapRange(0, viewportWidth, -7.5, 7.5, mouseX)
+        galleryY = gsap.utils.mapRange(0, viewportHeight, -7.5, 7.5, mouseY)
 
         gsap.to('.image_gallery', {
-          duration: 2,
-          ease: 'power4.out',
+          duration: 1,
+          ease: 'power3.out',
           x: `${galleryX}vw`,
           y: `${galleryY}vw`,
         })

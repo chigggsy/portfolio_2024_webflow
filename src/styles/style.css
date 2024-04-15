@@ -11,10 +11,10 @@
 }
 
 .image_gallery {
-  /* border: 1px dashed black; */
   width: 80vh;
+  pointer-events: none;
 }
 
 .image_wrapper {
-  width: 180px;
+  width: 300px;
 }
