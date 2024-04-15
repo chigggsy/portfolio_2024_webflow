@@ -29,6 +29,7 @@ const pageHome = () => {
       defaults: { ease: '10_100' },
     })
     tl_image01
+      .to('.pl_wrapper.pl_blank', { duration: 0, display: 'block' }, 0)
       .to(
         '.pl_image-wrapper.is-01',
         {
@@ -97,11 +98,15 @@ const pageHome = () => {
         },
         0
       )
-    tl_image05.to(
-      '.pl_image-wrapper.is-05',
+    tl_image05.fromTo(
+      '.pl_wrapper',
       {
-        duration: 0.67,
         clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
+      },
+
+      {
+        clipPath: 'polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)',
+        duration: 0.67,
       },
       0
     )
