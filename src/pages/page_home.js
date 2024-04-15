@@ -29,7 +29,7 @@ const pageHome = () => {
       defaults: { ease: '10_100' },
     })
     tl_image01
-      .to('.pl_wrapper.pl_blank', { duration: 0, display: 'block' }, 0)
+      .to('.pl_wrapper .pl_blank', { duration: 0, display: 'none' }, 0)
       .to(
         '.pl_image-wrapper.is-01',
         {
