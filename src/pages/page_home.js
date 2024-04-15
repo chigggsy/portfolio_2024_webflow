@@ -278,16 +278,18 @@ const pageHome = () => {
         },
         0
       )
-      .to(
-        '.heading_image',
+      .fromTo(
+        '.image_group',
         {
-          duration: 1,
-          y: -20,
-          clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
-          ease: '20_100',
-          stagger: 0.2,
+          clipPath: 'polygon(0% 66.7%, 100% 66.7%, 100% 66.7%, 0% 66.7%)',
         },
-        0.225
+        {
+          clipPath: 'polygon(0% 33.3%, 100% 33.3%, 100% 66.7%, 0% 66.7%)',
+          duration: 0.8,
+          ease: '20_100',
+          stagger: 0.075,
+        },
+        0
       )
 
     tl_textReveal
@@ -310,29 +312,109 @@ const pageHome = () => {
     tl_main.add(tl_imageReveal, 1).add(tl_textReveal, '-=0.9')
   }
 
-  const anim_rotateThumbnails = () => {
-    const tl = gsap.timeline()
-    tl.to(
-      '.heading_image-wrapper',
-      {
-        rotate: 360,
-        duration: 90,
-        ease: 'none',
+  const anim_clipPath = () => {
+    let viewportWidth
+    let thirdWidth
+    let pastState = 0
+
+    function updateViewportDimensions() {
+      viewportWidth = window.innerWidth
+      thirdWidth = viewportWidth / 3
+    }
+
+    updateViewportDimensions()
+    window.addEventListener('resize', updateViewportDimensions)
+
+    window.addEventListener('mousemove', (event) => {
+      let latestState = 0
+      const mouseX = event.clientX
+
+      if (mouseX < thirdWidth) {
+        latestState = 1
+      } else if (mouseX < thirdWidth * 2) {
+        latestState = 2
+      } else {
+        latestState = 3
+      }
+
+      if (latestState !== pastState) {
+        pastState = latestState
+
+        if (pastState === 1) {
+          const tl = gsap.timeline({
+            defaults: { ease: 'power3.out', duration: 0.7 },
+          })
+          tl.to('.image_group', {
+            clipPath: 'polygon(-100% 66.7%, 0% 66.7%, 0% 100%, -100% 100%)',
+            stagger: 0.05,
+          })
+        } else if (pastState === 2) {
+          const tl = gsap.timeline({
+            defaults: { ease: 'power3.out', duration: 0.7 },
+          })
+          tl.to('.image_group', {
+            clipPath: 'polygon(0% 33.3%, 100% 33.3%, 100% 66.7%, 0% 66.7%',
+            stagger: 0.05,
+          })
+        } else {
+          const tl = gsap.timeline({
+            defaults: { ease: 'power3.out', duration: 0.7 },
+          })
+          tl.to('.image_group', {
+            clipPath: 'polygon(100% 0%, 200% 0%, 200% 33.3%, 100% 33.3%',
+            stagger: 0.05,
+          })
+        }
+      }
+    })
+  }
+
+  const anim_galleryTransforms = () => {
+    const galleryRotate = () => {
+      const tl = gsap.timeline({
+        defaults: { duration: 90, ease: 'none' },
         repeat: -1,
-        yoyo: true,
-      },
-      2.8
-    ).to(
-      '.heading_image-wrapper .heading_image',
-      {
-        rotate: -360,
-        duration: 90,
-        ease: 'none',
-        repeat: -1,
-        yoyo: true,
-      },
-      2.8
-    )
+      })
+      tl.to('.image_gallery', { rotate: 360 }, 3).to(
+        '.image_group',
+        { rotate: -360 },
+        3
+      )
+    }
+    const followCursor = () => {
+      let galleryX = 0
+      let galleryY = 0
+      let viewportWidth
+      let viewportHeight
+
+      function updateViewportDimensions() {
+        viewportWidth = window.innerHeight
+        viewportHeight = window.innerHeight
+      }
+
+      updateViewportDimensions()
+
+      window.addEventListener('resize', function () {
+        updateViewportDimensions()
+      })
+
+      window.addEventListener('mousemove', (event) => {
+        const mouseX = event.clientX
+        const mouseY = event.clientY
+
+        galleryX = gsap.utils.mapRange(0, viewportWidth, -5, 5, mouseX)
+        galleryY = gsap.utils.mapRange(0, viewportHeight, -5, 5, mouseY)
+
+        gsap.to('.image_gallery', {
+          duration: 2,
+          ease: 'power4.out',
+          x: `${galleryX}vw`,
+          y: `${galleryY}vw`,
+        })
+      })
+    }
+    galleryRotate()
+    followCursor()
   }
 
   const link_hover = () => {
@@ -352,7 +434,10 @@ const pageHome = () => {
   }
 
   anim_intro()
-  anim_rotateThumbnails()
+  anim_galleryTransforms()
+  setTimeout(() => {
+    anim_clipPath()
+  }, 3500)
   link_hover()
 }
 
