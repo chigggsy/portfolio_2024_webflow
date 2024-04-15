@@ -6,10 +6,6 @@
   clip-path: polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%);
 }
 
-.main-wrapper {
-  z-index: 2;
-}
-
 .image_gallery {
   width: 80vh;
   pointer-events: none;

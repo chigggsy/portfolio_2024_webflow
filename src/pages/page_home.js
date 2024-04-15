@@ -422,12 +422,12 @@ const pageHome = () => {
       link.addEventListener('mouseover', () => {
         link.style.color = 'var(--white)'
         body.style.backgroundColor = 'var(--brand)'
-        gsap.set('.image_gallery', { opacity: 0 }, 0)
+        // gsap.set('.image_gallery', { opacity: 0 }, 0)
       })
       link.addEventListener('mouseout', () => {
         link.style.color = 'var(--brand)'
         body.style.backgroundColor = 'var(--white)'
-        gsap.set('.image_gallery', { opacity: 1 })
+        // gsap.set('.image_gallery', { opacity: 1 })
       })
     })
   }
