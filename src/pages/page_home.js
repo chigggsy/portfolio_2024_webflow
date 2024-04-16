@@ -421,49 +421,11 @@ const pageHome = () => {
     followCursor()
   }
 
-  const link_hover = () => {
-    const body = document.querySelector('body')
-    const navLinks = document.querySelectorAll('.navbar a, .socials_wrapper a')
-
-    navLinks.forEach((link) => {
-      link.addEventListener('mouseover', () => {
-        link.style.color = 'var(--white)'
-        body.style.backgroundColor = 'var(--brand)'
-        gsap.set(link, { zIndex: 10 }, 0)
-      })
-      link.addEventListener('mouseout', () => {
-        link.style.color = 'var(--brand)'
-        body.style.backgroundColor = 'var(--white)'
-        gsap.set(link, { zIndex: 0 }, 0)
-      })
-    })
-  }
-
-  // Currently working on this <----------------------------------------------
-  const navigate_projects = () => {
-    const imageGroupList = gsap.utils.toArray('.image_group')
-    const linkProject = document.querySelector('.nav_item.is-projects')
-    const galleryFlipContainer = document.querySelector(
-      '.gallery_flip-container'
-    )
-
-    linkProject.addEventListener('click', (event) => {
-      event.preventDefault()
-      let state = Flip.getState('.image_group')
-      imageGroupList.forEach((imageGroup) => {
-        imageGroup.appendChild(galleryFlipContainer)
-        Flip.from(state, { duration: 1.5, ease: 'power3.inOut' }, 0)
-      })
-    })
-  }
-
   anim_intro()
   anim_galleryTransforms()
   setTimeout(() => {
     anim_clipPath()
   }, 3500)
-  link_hover()
-  navigate_projects()
 }
 
 export default pageHome
