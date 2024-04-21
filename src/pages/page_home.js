@@ -1,11 +1,9 @@
 import { gsap } from 'gsap'
 import { CustomEase } from 'gsap/CustomEase'
-import { Flip } from 'gsap/Flip'
 import SplitType from 'split-type'
 
 const pageHome = () => {
   gsap.registerPlugin(CustomEase)
-  gsap.registerPlugin(Flip)
   CustomEase.create('20_80', 'M0,0 C0.2,0 0.2,1 1,1 ')
   CustomEase.create('20_100', 'M0,0 C0.2,0 0,1 1,1 ')
   CustomEase.create('10_100', 'M0,0 C0.1,0 0,1 1,1 ')
