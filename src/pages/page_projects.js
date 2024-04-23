@@ -96,21 +96,29 @@ const pageProjects = () => {
 
   const click_project = () => {
     const projectLinkList = gsap.utils.toArray('.project_item')
-    const flip_thumbnailTarget = document.querySelector(
-      '.flip_project.is-image'
+    const flip_thumbnailTarget = document.querySelector('.flip_project-image')
+    const flip_headingTarget = document.querySelector(
+      '.flip_project.is-heading'
     )
     projectLinkList.forEach((projectLink) => {
       projectLink.addEventListener('click', (event) => {
         event.preventDefault()
-
         const selectedProject = projectLink.dataset.projectTitle
-        const selectedThumbnail = document.querySelector(
-          `[data-project-thumbnail="${selectedProject}"]`
-        )
 
-        let state = Flip.getState(selectedThumbnail)
+        // Flip Heading
+        const selectedProjectHeading = projectLink.querySelector('h1')
+        let state_heading = Flip.getState(selectedProjectHeading)
+        flip_headingTarget.appendChild(selectedProjectHeading)
+        Flip.from(state_heading, { duration: 1.5, ease: 'power3.inOut' })
+
+        // Flip Thumbnail
+        const selectedThumbnail = document.querySelector(
+          `[data-project-thumbnail="${selectedProject}"] img`
+        )
+        let state_thumbnail = Flip.getState(selectedThumbnail)
+        gsap.set(selectedThumbnail, { clearProps: 'all' })
         flip_thumbnailTarget.appendChild(selectedThumbnail)
-        Flip.from(state, { duration: 1.5, ease: 'power3.inOut' })
+        Flip.from(state_thumbnail, { duration: 1.5, ease: 'power3.inOut' })
       })
     })
   }
