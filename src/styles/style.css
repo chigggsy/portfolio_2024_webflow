@@ -6,15 +6,6 @@
   clip-path: polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%);
 }
 
-.image_gallery {
-  width: 80vh;
-  pointer-events: none;
-}
-
-.image_wrapper {
-  width: 300px;
-}
-
 .main_wrapper.is-projects {
   a {
     color: white;

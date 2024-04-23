@@ -1,8 +1,10 @@
 import { gsap } from 'gsap'
 import { CustomEase } from 'gsap/CustomEase'
+import Flip from 'gsap/Flip'
 
 const pageProjects = () => {
   gsap.registerPlugin(CustomEase)
+  gsap.registerPlugin(Flip)
   CustomEase.create('20_80', 'M0,0 C0.2,0 0.2,1 1,1 ')
   CustomEase.create('20_100', 'M0,0 C0.2,0 0,1 1,1 ')
   CustomEase.create('10_100', 'M0,0 C0.1,0 0,1 1,1 ')
@@ -91,8 +93,31 @@ const pageProjects = () => {
       )
     })
   }
+
+  const click_project = () => {
+    const projectLinkList = gsap.utils.toArray('.project_item')
+    const flip_thumbnailTarget = document.querySelector(
+      '.flip_project.is-image'
+    )
+    projectLinkList.forEach((projectLink) => {
+      projectLink.addEventListener('click', (event) => {
+        event.preventDefault()
+
+        const selectedProject = projectLink.dataset.projectTitle
+        const selectedThumbnail = document.querySelector(
+          `[data-project-thumbnail="${selectedProject}"]`
+        )
+
+        let state = Flip.getState(selectedThumbnail)
+        flip_thumbnailTarget.appendChild(selectedThumbnail)
+        Flip.from(state, { duration: 1.5, ease: 'power3.inOut' })
+      })
+    })
+  }
+
   anim_intro()
   hover_project()
+  click_project()
 }
 
 export default pageProjects
