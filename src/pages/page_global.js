@@ -32,6 +32,7 @@ const pageGlobal = () => {
     // Clicking Projects on the Home page
     navProjects.addEventListener('click', (event) => {
       event.preventDefault()
+      gsap.set('body', { backgroundColor: 'var(--brand)' })
       let bottomMostImage
       const imageGroup = gsap.utils.toArray('.image_group')
       const imagePositions = imageGroup.map((image, index) => {
