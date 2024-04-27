@@ -121,9 +121,12 @@ const pageProjects = () => {
 
         // Flip Animation
         const flipAnimation = () => {
-          let state_Heading = Flip.getState(projectItem.querySelector('h1'))
+          let state_heading = Flip.getState(projectItem.querySelector('h1'))
           flip_headingTarget.appendChild(projectItem.querySelector('h1'))
-          Flip.from(state_Heading, { duration: 0.6, ease: '20_100' })
+          Flip.from(state_heading, {
+            duration: 0.6,
+            ease: '20_100',
+          })
 
           const selectedThumbnail = document.querySelector(
             `[data-project-thumbnail="${selectedProjectTitle}"]`
@@ -134,6 +137,7 @@ const pageProjects = () => {
             duration: 0.6,
             ease: '20_100',
             onComplete: () => {
+              gsap.set('.project_menu-thumbnail', { clearProps: 'all' })
               window.location.href = `/projects/${selectedProjectTitle}`
             },
           })
