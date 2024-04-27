@@ -11,27 +11,33 @@ const pageGlobal = () => {
     const body = document.querySelector('body')
     const navLinks = gsap.utils.toArray('.navbar a, .socials_wrapper a')
     const navProjects = navLinks[0]
-    // const nav_Thoughts = navLinks[1]
-    // const nav_About = navLinks[2]
-    // const nav_Lab = navLinks[3]
+
+    function handleMouseOver() {
+      this.style.color = 'var(--white)'
+      body.style.backgroundColor = 'var(--brand)'
+      gsap.set(this, { zIndex: 10 }, 0)
+    }
+
+    function handleMouseOut() {
+      this.style.color = 'var(--brand)'
+      body.style.backgroundColor = 'var(--white)'
+      gsap.set(this, { zIndex: 0 }, 0)
+    }
 
     // Hover interaction
     navLinks.forEach((link) => {
-      link.addEventListener('mouseover', () => {
-        link.style.color = 'var(--white)'
-        body.style.backgroundColor = 'var(--brand)'
-        gsap.set(link, { zIndex: 10 }, 0)
-      })
-      link.addEventListener('mouseout', () => {
-        link.style.color = 'var(--brand)'
-        body.style.backgroundColor = 'var(--white)'
-        gsap.set(link, { zIndex: 0 }, 0)
-      })
+      link.addEventListener('mouseover', handleMouseOver)
+      link.addEventListener('mouseout', handleMouseOut)
     })
 
     // Clicking Projects on the Home page
     navProjects.addEventListener('click', (event) => {
       event.preventDefault()
+      navLinks.forEach((link) => {
+        link.removeEventListener('mouseover', handleMouseOver)
+        link.removeEventListener('mouseout', handleMouseOut)
+      })
+
       gsap.set('body', { backgroundColor: 'var(--brand)' })
       let bottomMostImage
       const imageGroup = gsap.utils.toArray('.image_group')
